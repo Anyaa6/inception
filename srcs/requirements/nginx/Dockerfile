@@ -18,16 +18,18 @@ RUN apk update \
 
 # USER www # Does not work, prevents container from being build successfully
 
-COPY /conf/nginx.conf /etc/nginx/
-COPY /conf/server.conf /etc/nginx/sites-available/
-COPY /conf/index.html /www/
-COPY ./docker-entrypoint.sh /
+COPY ./conf/nginx.conf /etc/nginx/
+COPY ./conf/server.conf /etc/nginx/sites-available/
+COPY ./conf/index.html /www/
+COPY ./conf/docker-entrypoint.sh /
 
 RUN ln -s /etc/nginx/sites-available/server.conf /etc/nginx/sites-enabled/
 
 #Does not expose port, only a convention for letting readers know which ont it is listening to
-EXPOSE 80
+EXPOSE 443
+# EXPOSE 80
 
-# ENTRYPOINT [ "/docker-entrypoint.sh" ]
+# ENTRYPOINT [ "echo" "lol" ]
+ENTRYPOINT [ "/docker-entrypoint.sh" ]
 
 CMD [ "nginx", "-g", "daemon off;"]
