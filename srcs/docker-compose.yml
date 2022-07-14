@@ -1,1 +1,23 @@
 #tabs are forbiden in YAML file
+version: '3'
+
+services:
+  nginx:
+    build: ./requirements/nginx/
+    container_name: my_nginx
+    restart: unless-stopped
+    ports:
+      - 80:80
+      - 443:443
+    # volumes:
+    #   - /home/ubuntu/rstudio_docker/nginx.conf:/etc/nginx/nginx.conf
+    #   - /home/ubuntu/ssl:/ssl/
+    
+  # mariadb:
+  #   build: ./requirements/mariadb/
+  #   container_name: my_mariadb
+  #   restart: unless-stopped
+  #   ports:
+  #     - 3306:3306
+
+  #volumes makes for persistant databases

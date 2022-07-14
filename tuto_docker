@@ -1,0 +1,27 @@
+sudo docker build -t newnginx .
+sudo docker run -p 8000:80 newnginx
+
+#start an alpine container
+sudo docker run -ti alpine:3.14.6 /bin/sh
+
+#inside container
+apk update 
+apk upgrade 
+apk add --no-cache nginx 
+adduser -D -g 'www' www
+mkdir /www 
+chown -R www:www /var/lib/nginx 
+chown -R www:www /www
+
+#To check wether nginx is running but in Dockerfile use CMD nginx -g "daemon off;"
+apk add nginx openrc
+chmod 775 /run/nginx/
+openrc
+touch /run/openrc/softlevel
+rc-service nginx start
+
+ps aux | grep nginx
+
+
+0.0.0.0/50x.html will lead to the 50x page
+
