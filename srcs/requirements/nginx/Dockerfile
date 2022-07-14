@@ -9,31 +9,25 @@ RUN apk update \
 	&& adduser -D -g 'www' www \
 	&& mkdir /www \
 	&& chown -R www:www /var/lib/nginx \
-	&& chown -R www:www /www 
+	&& chown -R www:www /www \
+	#saving original conf to nginx.conf.orig
+	&& mv /etc/nginx/nginx.conf /etc/nginx/nginx.conf.orig \
+	&& mkdir /etc/nginx/sites-available \
+	&& mkdir /etc/nginx/sites-enabled
+	#no nead for apk clean (apt-get clean) cmd, alpine does it automatically
 
-#Need to COPY configuration and +/- index.html
+# USER www # Does not work, prevents container from being build successfully
+
 COPY /conf/nginx.conf /etc/nginx/
+COPY /conf/server.conf /etc/nginx/sites-available/
 COPY /conf/index.html /www/
+COPY ./docker-entrypoint.sh /
 
-#no nead for apk clean (apt-get clean) cmd, alpine does it automatically
+RUN ln -s /etc/nginx/sites-available/server.conf /etc/nginx/sites-enabled/
 
-#n'expose pas reellement le port, c'est une convention
+#Does not expose port, only a convention for letting readers know which ont it is listening to
 EXPOSE 80
 
-#ENTRYPOINT and CMD must be in list format
-#https://aws.amazon.com/fr/blogs/france/demystifier-entrypoint-et-cmd-dans-docker/
-#THERE IS ONLY ONE CMD INSTRUCTION IN A DOCKERFILE
+# ENTRYPOINT [ "/docker-entrypoint.sh" ]
+
 CMD [ "nginx", "-g", "daemon off;"]
-
-#docker run -it -p 80:80 -p 443:443 alpine:latest
-#docker exec -ti bf5a5ff4e7a5 /bin/sh
-#docker run -ti mynginx /bin/sh
-#docker run --name contt -ti mynginx /bin/sh
-#docker image prune -a
-#docker container prune
-
-#exit nginx container without stopping it : ctrl+p then ctrl+q
-
-#pour utiliser no-cache on peut le mettre au niveau de la commande build :
-#docker build --no-cache -t test .
-

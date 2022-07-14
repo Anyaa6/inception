@@ -25,3 +25,14 @@ ps aux | grep nginx
 
 0.0.0.0/50x.html will lead to the 50x page
 
+default server block is in etc/nginx/http.d
+
+
+#docker run -it -p 80:80 -p 443:443 alpine:latest
+#docker exec -ti bf5a5ff4e7a5 /bin/sh
+#docker run -ti mynginx /bin/sh
+#docker run --name contt -ti mynginx /bin/sh
+#docker image prune -a
+#docker container prune
+
+exit nginx container without stopping it : ctrl+p then ctrl+q
