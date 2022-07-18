@@ -12,6 +12,12 @@ services:
     # volumes:
     #   - /home/ubuntu/rstudio_docker/nginx.conf:/etc/nginx/nginx.conf
     #   - /home/ubuntu/ssl:/ssl/
+  wordpress:
+    build: ./requirements/wordpress/
+    container_name: my_wordpress
+    restart: unless-stopped
+    ports:
+      - 9000:9000
     
   # mariadb:
   #   build: ./requirements/mariadb/

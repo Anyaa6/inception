@@ -40,3 +40,6 @@ exit nginx container without stopping it : ctrl+p then ctrl+q
 Now that ssl is working, connect writting https in front
 https://127.0.0.1
 https://localhost
+
+SEE logs
+sudo docker logs my_nginx

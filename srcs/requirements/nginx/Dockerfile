@@ -2,7 +2,8 @@ FROM alpine:3.14.6
 
 LABEL maintainer="abonnel@student.42lyon.fr"
 
-RUN apk update \
+RUN set -ux \
+	&& apk update \
 	&& apk upgrade \
 	&& apk add --no-cache nginx openssl \
 	#Is necessary ? nginx user is created automatically but not www
@@ -21,7 +22,7 @@ RUN apk update \
 COPY ./conf/nginx.conf /etc/nginx/
 COPY ./conf/server.conf /etc/nginx/sites-available/
 COPY ./conf/index.html /www/
-COPY ./conf/docker-entrypoint.sh /
+COPY ./tools/docker-entrypoint.sh /
 
 RUN ln -s /etc/nginx/sites-available/server.conf /etc/nginx/sites-enabled/
 

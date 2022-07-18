@@ -1,5 +1,6 @@
 #use docker compose built --no-cache 
-CONTAINERS = my_nginx
+CONTAINERS = my_nginx 
+#my_wordpress
 
 all:
 	sudo docker compose -p inception -f srcs/docker-compose.yml build --no-cache
