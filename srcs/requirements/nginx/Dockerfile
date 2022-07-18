@@ -17,8 +17,6 @@ RUN set -ux \
 	&& mkdir /etc/nginx/sites-enabled
 	#no nead for apk clean (apt-get clean) cmd, alpine does it automatically
 
-# USER www # Does not work, prevents container from being build successfully
-
 COPY ./conf/nginx.conf /etc/nginx/
 COPY ./conf/server.conf /etc/nginx/sites-available/
 COPY ./conf/index.html /www/
@@ -26,11 +24,9 @@ COPY ./tools/docker-entrypoint.sh /
 
 RUN ln -s /etc/nginx/sites-available/server.conf /etc/nginx/sites-enabled/
 
-#Does not expose port, only a convention for letting readers know which ont it is listening to
+#Letting readers know which port it is listening to
 EXPOSE 443
-# EXPOSE 80
 
-# ENTRYPOINT [ "echo" "lol" ]
 ENTRYPOINT [ "/docker-entrypoint.sh" ]
 
 CMD [ "nginx", "-g", "daemon off;"]

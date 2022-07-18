@@ -3,6 +3,10 @@ FROM alpine:3.14.6
 LABEL maintainer="abonnel@student.42lyon.fr"
 
 #CREATE SIMPLE WORDPRESS WITHOUT DATABASE THAT I CAN JUST CONNECT TO ON LOCALHOST
+#Un container Docker contenant WordPress + php-fpm (installé et configuré) uniquement sans nginx.
+#SO IT MEANS IN ORDER TO HAVE WORDPRESS working, since we do not have nginx INSIDE the container then we should create a network to allow them to connect to each other from the get go otherwise wordpress will not be able to serve us pages without it's proxy/server = nginx
+
+#Deux utilisateurs seront présents dans votre base de données WordPress, l’un d’eux étant le compte Admin. L’username de l’Admin ne devra pas comporter "admin" ou "Admin" (exemples : admin, administrator, administrateur, administratrice, admin-123, etc. ...).
 
 RUN echo "http://dl-cdn.alpinelinux.org/alpine/v3.8/community" >> /etc/apk/repositories \
 	&& apk update \

@@ -8,6 +8,6 @@ openssl req -newkey rsa:4096 \
             -nodes \
             -out /etc/ssl/certs/www.crt \
             -keyout /etc/ssl/private/www.key \
-			-subj "/C=FR/ST=Rhone/L=Lyon/O=Abonnel corp/OU=IT/CN=www"
+			-subj "/C=$COUNTRY/ST=$STATE/L=$LOCALITY/O=$ORGANIZATION/OU=$ORGANIZATIONAL_UNIT/CN=$COMMON_NAME"
 
 exec "$@"
